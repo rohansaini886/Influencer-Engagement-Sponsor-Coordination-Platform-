@@ -10,7 +10,8 @@
  
 <h2>DB Schema Design :- </h2>
 
-![image](https://github.com/user-attachments/assets/f2680393-84b8-4d51-aba9-1e180dd2d639)
+![image](https://github.com/user-attachments/assets/60c74f8a-4287-484d-8669-5c8101ebb193)
+
 
 
 <h2>Architecture and features :- </h2>
