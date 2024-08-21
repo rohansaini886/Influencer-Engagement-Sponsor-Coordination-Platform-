@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {% if title %}
+        <title>{{title}}</title>
+    {% else %}
+        <title>Sponsor Dashboard</title>
+    {% endif %}
+    <style>
+        .profile-card {
+            max-width: 18rem;
+            margin-left: 2%;
+        }
+        .content-card {
+            margin-left: 2%;
+        }
+        .card-title img {
+            border-radius: 100%;
+            width: 65%;
+            height: 65%;
+            margin-left: 15%;
+        }
+        .campaign-panel {
+            max-height: 370px;
+            overflow-y: scroll;
+            margin-top: 20px;
+        }
+        .campaign-item {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="/{{data.sponsor_username}}">Sponsor Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/sponsor_dashboard/{{data.sponsor_username}}">Profile</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="/sposnor_campaigns/{{data.sponsor_username}}">Campaigns <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/sposnor_find/{{data.sponsor_username}}">Find</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/sposnor_stats/{{data.sponsor_username}}">Stats</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Log Out</a>
+            </li>
+        </div>
+      </nav>
+      <br>
+      <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+              <div class="card border-primary mb-3 profile-card">
+                  <div class="card-header">Hello, {{data.sponsor_username}} !!!</div>
+                  <div class="card-body text-primary">
+                    <h4 class="card-title" style="text-align: center;">Title: <b>{{data.campaign_title}}</b></h4>
+                    <p class="card-text">Description: <b>{{data.campaign_description}}</b></p>
+                    <p class="card-text">Start Date: <b>{{data.campaign_start_date}} </b></p>
+                    <p class="card-text">End Date: <b>{{data.campaign_end_date}} </b></p>
+                    <p class="card-text">Campaign Budgte: <b>{{data.campaign_budget}} </b></p>
+                    <p class="card-text">Campaign Niche: <b>{{data.campaign_niche}} </b></p>
+                    <p class="card-text">Campaign Status: <b>{{data.campaign_status}} </b></p>
+                  </div>
+              </div>
+            </div>
+            <div class="col-md-8">
+            <h6 style="text-align: right;"><form action="/delete_camapign/{{data.sponsor_username}}" method="POST"><button name="delete" value="{{data.campaign_id}}">Delete the Campaign</button></form></h6>
+            <h6 style="text-align: right;"><form action="/edit_campaign/{{data.sponsor_username}}" method="POST"><button name="edit" value="{{data.campaign_id}}">Edit the Campaign</button></form></h6><br>
+            <h4 style="text-align: center;">Create New Advertisement Requests:</h4><br>
+            <h4 style="text-align:center;"><form action="/add_ad_request/{{data.sponsor_username}}" method="POST"><button style="border: none;background-color: #ffffff;height: 100%;width: 100%;" value="{{data.campaign_id}}" name="campaign_id"><img src="/static/local/add.png" style="height: 10%; width: 10%; border-radius: 100%;"></button></form></h4>
+              <div class="campaign-panel">
+                <h3>Completed Request :- </h3>
+                {% for ad_data in ad_data_list %}
+                {% if ad_data.ad_status == "Completed" %}
+                <div class="card mb-2">
+                    <div class="card-body">
+                      <form action="/sponsor_view_completed_ad/{{data.sponsor_username}}/{{ad_data.id}}" method="POST">
+                      <h5>{{ad_data.ad_tile}} | {{ad_data.influencer_username}} | Status : {{ad_data.ad_status}}
+                      <button class="btn btn-primary float-right" name="campaign_id" value="{{data.campaign_id}}">view</button></h5></form>
+                    </div>
+                  </div>
+                  {%endif%}
+                  {% endfor %}
+                  <br>
+                  <br>
+                <h3>Accepted Request :- </h3>
+                {% for ad_data in ad_data_list %}
+                {% if ad_data.ad_status == "Accepted" %}
+                <div class="card mb-2">
+                    <div class="card-body">
+                      <form action="/sponsor_view_accepted_ad/{{data.sponsor_username}}/{{ad_data.id}}" method="POST">
+                      <h5>{{ad_data.ad_tile}} | {{ad_data.influencer_username}} | Status : {{ad_data.ad_status}}
+                      <button class="btn btn-primary float-right" name="campaign_id" value="{{data.campaign_id}}">view</button></h5></form>
+                    </div>
+                  </div>
+                  {%endif%}
+                  {% endfor %}
+                  <br>
+                  <br>
+                <h3>Influencer Requests :- </h3>
+                {% for ad_data in ad_data_list %}
+                {% if ad_data.ad_status == "Requested" %}
+                <div class="card mb-2">
+                    <div class="card-body">
+                      <form action="/view_ad/{{data.sponsor_username}}/{{ad_data.id}}" method="POST">
+                      <h5>{{ad_data.ad_tile}} | {{ad_data.influencer_username}} | Status : {{ad_data.ad_status}}
+                      <button class="btn btn-primary float-right" name="campaign_id" value="{{data.campaign_id}}">view</button></h5></form>
+                    </div>
+                  </div>
+                {%endif%}
+                {% endfor %}
+                <br>
+                  <br>
+                <h3>Other Request :- </h3>
+                {% for ad_data in ad_data_list %}
+                {% if ad_data.ad_status != "Accepted"  and ad_data.ad_status != "Completed" and ad_data.ad_status != "Requested" %}
+                <div class="card mb-2">
+                    <div class="card-body">
+                      <form action="/view_ad/{{data.sponsor_username}}/{{ad_data.id}}" method="POST">
+                      <h5>{{ad_data.ad_tile}} | {{ad_data.influencer_username}} | Status : {{ad_data.ad_status}}
+                      <button class="btn btn-primary float-right" name="campaign_id" value="{{data.campaign_id}}">view</button></h5></form>
+                    </div>
+                  </div>
+                {%endif%}
+                {% endfor %}
+              </div>
+            </div>
+        </div>
+        <div class="container">
+           {% with messages = get_flashed_messages(with_categories=true) %}
+               {% if messages %}
+                   <div class="flashes">
+                       {% for category, message in messages %}
+                           <div class="alert alert-{{ category }}">
+                               {{ message }}
+                           </div>
+                       {% endfor %}
+                   </div>
+               {% endif %}
+           {% endwith %}
+       </div>
+     <!-- Optional JavaScript -->
+     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDzwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+   </body>
+   </html>

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {% if title %}
+        <title>{{title}}</title>
+    {% else %}
+        <title>Sponsor Dashboard</title>
+    {% endif %}
+    <style>
+        .profile-card {
+            max-width: 18rem;
+            margin-left: 2%;
+        }
+        .content-card {
+            margin-left: 2%;
+        }
+        .card-title img {
+            border-radius: 100%;
+            width: 65%;
+            height: 65%;
+            margin-left: 15%;
+        }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="/sponsor_dashboard/{{username}}">Sponsor Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/sponsor_dashboard/{{username}}">Profile</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="/sposnor_campaigns/{{username}}">Campaigns <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/sposnor_find/{{username}}">Find</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/sposnor_stats/{{username}}">Stats</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Log Out</a>
+            </li>
+        </div>
+      </nav>
+      <br>
+      <h3 style="text-align: center;margin-left: 10%;">Hello {{username}} add the Campaign Details :- </h3>
+      <div style="display: flex; align-items: center; justify-content: center; height: 70vh; flex-direction: column; overflow: hidden;">
+          <form action='/campaigns_data/{{username}}' method="POST" enctype="multipart/form-data" style="display: flex; flex-direction: column; gap: 1rem;">
+              <div style="display: flex; align-items: center;">
+                  <label style="width: 150px; text-align: right; padding-right: 10px;">Title :</label>
+                  <input type='text' name='title' required style="flex: 1 ; text-align: center;">
+              </div>
+              <div style="display: flex; align-items: center;">
+                  <label style="width: 150px; text-align: right; padding-right: 10px;">Description :</label>
+                  <input type='text' height="100px" name='description' required style="flex: 1; text-align: center;">
+              </div>
+              <div style="display: flex; align-items: center;">
+                  <label style="width: 150px; text-align: right; padding-right: 10px;">Niche :</label>
+                  <input type='text' name='niche' required style="flex: 1; text-align: center;">
+              </div>
+              <div style="display: flex; align-items: center;">
+                  <label style="width: 150px; text-align: right; padding-right: 10px;">Budget (in rupees) : </label>
+                  <input type='text' name='budget' required style="flex: 1; text-align: center;">
+              </div>
+              <div style="display: flex; align-items: center;">
+                  <label style="width: 150px; text-align: right; padding-right: 10px;">Start Date : </label>
+                  <input type='date' name='start_date' required style="flex: 1; text-align: center;">
+              </div>
+              <div style="display: flex; align-items: center;">
+                  <label style="width: 150px; text-align: right; padding-right: 10px;">End Date : </label>
+                  <input type='date' name='end_date' required style="flex: 1; text-align: center;">
+              </div>
+              <div style="display: flex; align-items: center;">
+                  <label style="width: 150px; text-align: right; padding-right: 10px;">Visibility :</label>
+                  <input type='radio' name='visibility' required style="flex: 1; text-align: center;" value="public" checked>
+                  <label>Public</label>
+                  <input type='radio' name='visibility' required style="flex: 1; text-align: center;" value="private">
+                  <label>Private</label>
+              </div>
+              <button type="submit" style="align-self: center;margin-left: 30%;">REGISTER</button>
+          </form>
+      </div>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

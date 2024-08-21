@@ -1,0 +1,28 @@
+{% extends 'admin_layout.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card border-primary mb-3 profile-card">
+            <div class="card-header">Welcome, {{data.name}}</div>
+            <div class="card-body text-primary">
+              <h5 class="card-title"><img src="{{ url_for('static', filename=data.image_url) }}" alt="img"></h5>
+              <p class="card-text">Username: {{data.username}}</p>
+              <p class="card-text">Ratings: <b>4.5</b></p>
+            </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="container" style="text-align: center;">
+                <p><b style="font-size: x-large;">Total_campaign :- {{total_campaign}}
+                    Total Ads :- {{total_ad}}</b></p>
+                    <p><b style="font-size: x-large;"> Completed Ads :- {{completed_ad}}
+                Remaining Ads :- {{remaining_ad}}</b></p>
+                <br>
+                <p><b style="font-size: x-large;">{{username}} Stats :- </b></p>
+                <img src="/static/graphs/stats_{{username}}.png">
+            </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

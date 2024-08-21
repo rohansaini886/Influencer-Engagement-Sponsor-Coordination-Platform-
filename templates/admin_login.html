@@ -1,0 +1,17 @@
+{% extends 'admin_layout.html' %}
+{% block content %}
+<h1 style="text-align: center;margin-left: 10%;">Admin Login</h1>
+<div style="display: flex; align-items: center; justify-content: center; height: 60vh; flex-direction: column; overflow: hidden;">
+    <form action='/admin_login' method="POST" enctype="multipart/form-data" style="display: flex; flex-direction: column; gap: 1rem;">
+        <div style="display: flex; align-items: center;">
+            <label style="width: 150px; text-align: right; padding-right: 10px;">Username:</label>
+            <input type='username' name='username' required style="flex: 1 ; text-align: center;">
+        </div>
+        <div style="display: flex; align-items: center;">
+            <label style="width: 150px; text-align: right; padding-right: 10px;">Password:</label>
+            <input type='password' name='password' required style="flex: 1; text-align: center;">
+        </div>
+        <button type="submit" style="align-self: center;margin-left: 30%;">Login</button>
+    </form>
+</div>
+{% endblock content %}

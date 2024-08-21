@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {% if title %}
+        <title>{{title}}</title>
+    {% else %}
+        <title>Influencer Dashboard</title>
+    {% endif %}
+    <style>
+        .profile-card {
+            max-width: 18rem;
+            margin-left: 2%;
+        }
+        .content-card {
+            margin-left: 2%;
+        }
+        .card-title img {
+            border-radius: 100%;
+            width: 65%;
+            height: 65%;
+            margin-left: 15%;
+        }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="/influencer_dashboard/{{data.username}}"">Influencer Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/influencer_dashboard/{{data.username}}">Profile <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/influencer_find/{{data.username}}">Find</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/influencer_stats/{{data.username}}">Stats</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Log Out</a>
+            </li>
+        </div>
+      </nav>
+      <br>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card border-primary mb-3 profile-card">
+                <div class="card-header">Welcome, {{data.name}}</div>
+                <div class="card-body text-primary">
+                  <h5 class="card-title"><img src="{{ url_for('static', filename=data.image_url) }}" alt="img"></h5>
+                  <p class="card-text">Username: {{data.username}}</p>
+                  <p class="card-text">Ratings: <b>4.5</b></p>
+                  <p class="card-text">Total Earning (In rupees): <b>{{data.total_earning}}</b></p>
+                  <p class="card-text">Total Reach: <b>{{data.reach}}</b></p>
+                </div>
+            </div>
+          </div>
+          <div class="col-md-8">
+             <h1 style="text-align: center;">Advertisement Details :- </h1>
+             <div class="card border-primary mb-3 profile-card" style="margin-left: 30%;margin-top: 5%;">
+                <div class="card-header d-flex justify-content-between">
+                    <form action="/influencer_view_ad/decision_ad/{{data.username}}/{{ad_data.id}}" method="POST"><button type="submit" class="btn btn-success float-left" name="change_status" value="Completed">
+                        Completed
+                    </button>
+                    <button type="submit" class="btn btn-danger float-left ml-2" name="change_status" value="Rejected">
+                        Abort
+                    </button></form>
+                </div>
+                <div class="card-body text-primary">
+                  <h4 class="card-title" style="text-align: center;">Title: <b>{{ad_data.ad_tile}}</b></h4>
+                  <p class="card-text">Description: <b>{{ad_data.ad_description}}</b></p>
+                  <p class="card-text">Requirements: <b>{{ad_data.ad_requirements}}</b></p>
+                  <p class="card-text">Budget: <b>{{ad_data.ad_negotiated_budget}} </b></p>
+                  <p class="card-text">Ad Niche: <b>{{ad_data.ad_niche | replace("  ", ", ")}} </b></p>
+             </div>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="flashes">
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+        </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>

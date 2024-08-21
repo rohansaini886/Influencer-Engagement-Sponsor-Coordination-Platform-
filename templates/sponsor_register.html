@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+<h1 style="text-align: center;margin-left: 10%;">Sponsor Sign Up</h1>
+<div style="display: flex; align-items: center; justify-content: center; height: 60vh; flex-direction: column; overflow: hidden;">
+    <form action='/sponsor_dashboard' method="POST" enctype="multipart/form-data" style="display: flex; flex-direction: column; gap: 1rem;">
+        <div style="display: flex; align-items: center;">
+            <label style="width: 150px; text-align: right; padding-right: 10px;">Email:</label>
+            <input type='email' name='email' required style="flex: 1 ; text-align: center;">
+        </div>
+        <div style="display: flex; align-items: center;">
+            <label style="width: 150px; text-align: right; padding-right: 10px;">Company Name:</label>
+            <input type='text' name='companyName' required style="flex: 1; text-align: center;">
+        </div>
+        <div style="display: flex; align-items: center;">
+            <label style="width: 150px; text-align: right; padding-right: 10px;">Username:</label>
+            <input type='text' name='username' maxlength="20" required style="flex: 1; text-align: center;">
+        </div>
+        <div style="display: flex; align-items: center;">
+            <label style="width: 150px; text-align: right; padding-right: 10px;">Password:</label>
+            <input type='password' name='password' required style="flex: 1; text-align: center;">
+        </div>
+        <div style="display: flex; align-items: center;">
+                    <label style="width: 150px; text-align: right; padding-right: 10px;">Industry Cover: (Seprate using ',')</label>
+            <input type='text' name='industry' required style="flex: 1; text-align: center;">
+        </div>
+        <div style="display: flex; align-items: center;">
+            <label style="width: 150px; text-align: right; padding-right: 10px;">Profile Photo:</label>
+            <input type='file' name='photo' accept=".png, .jpg, .jpeg" required style="flex: 1; text-align: center;">
+        </div>
+        <button type="submit" style="align-self: center;margin-left: 30%;">REGISTER</button>
+    </form>
+</div>
+{% endblock content %}

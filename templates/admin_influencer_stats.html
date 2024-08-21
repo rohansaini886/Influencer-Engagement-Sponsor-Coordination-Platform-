@@ -1,0 +1,44 @@
+<style>
+    .profile-card {
+        max-width: 18rem;
+        margin-left: 2%;
+    }
+    .content-card {
+        margin-left: 2%;
+    }
+    .card-title img {
+        border-radius: 100%;
+        width: 65%;
+        height: 65%;
+        margin-left: 15%;
+    }
+</style>
+{% extends 'admin_layout.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card border-primary mb-3 profile-card">
+            <h4><b><div class="card-header">{{data.name}}</div></b></h4>
+            <div class="card-body text-primary">
+              <h5 class="card-title"><img src="{{ url_for('static', filename=data.image_url) }}" alt="img"></h5>
+              <b><p class="card-text">Username: {{data.username}}</p>
+              <p class="card-text">Email: {{data.email}}</p>
+                    <p class="card-text">Niche: {{data.niche | replace("  ", ", ")}}</p>
+              <p class="card-text">Private Profile: {{data.private_profile}}</p></b>
+            </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="container" style="text-align: center;">
+                <p><b style="font-size: x-large;">Total Ads :- {{total_ad}}
+                Completed Ads :- {{completed_ad}}
+                Remaining Ads :- {{remaining_ad}}</b></p>
+                <br>
+                <p><b style="font-size: x-large;">{{username}} Stats :- </b></p>
+                <img src="/static/graphs/stats_{{username}}.png">
+            </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

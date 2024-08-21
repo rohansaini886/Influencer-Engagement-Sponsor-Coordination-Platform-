@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flashes">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
+    <h1>Home</h1>
+<div style="display: flex;align-items: center;justify-content: center;height: 80vh;flex-direction: column;overflow: hidden;">
+<div><a href = "./register" ><button type="button" class="btn btn-outline-success btn-lg btn-block" >Sign Up</button></a></div><br>
+<div><a href = "./login" ><button type="button" class="btn btn-outline-success btn-lg btn-block">Login</button></a></div>
+</div>
+{% endblock content %}
